@@ -1,9 +1,22 @@
-
 package arvorebinariabusca;
 
-public interface Item {
-    public int compara (Item it);
-    public void alteraChave (Object chave);
-    public Object recuperaChave();
-    
+public class Item {
+
+    private int value;
+
+    public Item(int valor) {
+        this.value = valor;
+    }
+
+  
+
+    public int getValue() {
+        return value;
+    }
+
+    public void setValue(int valor) {
+        this.value = valor;
+    }
+
+   
 }
