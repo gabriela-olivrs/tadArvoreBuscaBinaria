@@ -132,9 +132,44 @@ public class Tree {
         }
         
     }
+    public Tree remove(Item record) {
+        // primeiro caso - achei o elemento
+        if (this.record.getValue() == record.getValue()) {
+            // caso mais simples - o elemento está em um nó folha
+            if (this.right == null && this.left == null) {
+                return null;
+            } else {
+                // caso 2 - eu tenho filhos à esquerda, porém não tenho à direita
+                if (this.left != null && this.right == null) {
+                    return this.left;
+                } // caso 3 - eu tenho filhos à direita, porém não tenho à esquerda
+                else if (this.right != null && this.left == null) {
+                    return this.right;
+                } // caso 4 - tenho filhos dos dois lados (esquerda e direita)
+                else {
+                    // vamos adotar a estratégia do maior dentre os menores?
+                    Tree aux = this.left;
+                    while (aux.right != null) { // enquanto houver filhos à direita
+                        aux = aux.right;
+                    }
+                    // troco os elementos da árvore
+                    this.record = aux.getRecord();  // o nó atual recebe o elemento do aux
+                    // o maior dentre os menores
+                    aux.setRecord(record);         // insiro no nó folha (lá embaixão) o elmento a ser eliminado
+                    this.left = left.remove(record);
+                }
+            }
+        } else if (record.getValue() < this.record.getValue()) {
+            // delegar a responsabilidade à sub-arvore da esquerda
+            this.left = this.left.remove(record);
+        } else if (record.getValue() > this.record.getValue()) {
+            // delegar a responsabilidade à sub-arvore da direita
+            this.right = this.right.remove(record);
+        }
+        return this;
+    }
 
 }
-    
     
     
     
